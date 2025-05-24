@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# splitnothing
+
+Negotiation training app inspired by "Never Split the Difference" (Chris Voss). Practice real-world negotiation scenarios with AI-powered roleplay and get feedback on your technique.
+
+---
+
+## Features
+
+- **Scenario-based negotiation**: Practice with realistic AI counterparts (car dealer, manager, landlord, etc.)
+- **Vercel AI SDK v5**: Uses `useChat()` with streaming for natural, real-time conversation
+- **Prompt injection**: Each session includes scenario + negotiation system prompt
+- **Negotiation feedback**: (Planned) Get coaching on your last message using Vossian techniques (mirroring, labeling, tactical empathy, etc.)
+- **Simple UX**: Chat window, scenario prompt, (future: scenario picker, feedback toggle)
+
+---
+
+## Tech Stack
+
+- **Framework**: Next.js (App Router)
+- **AI SDK**: Vercel AI SDK v5 (alpha)
+- **LLMs**: OpenAI
+- **Runtime**: Edge functions for low-latency streaming
+- **UI**: TailwindCSS, shadcn/ui and Kibo UI
+
+---
 
 ## Getting Started
 
-First, run the development server:
+1. **Install dependencies**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+   ```bash
+   bun install # or npm install, yarn, pnpm
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Set environment variables**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+   Create a `.env.local` file with:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```env
+   OPENAI_API_KEY=sk-...
+   ```
 
-## Learn More
+3. **Run the dev server**
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   bun dev # or npm run dev, yarn dev, pnpm dev
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. **Open** [http://localhost:3000/chat](http://localhost:3000/chat)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Usage
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Start a chat and describe the negotiation scenario you want to practice (e.g., "negotiating a raise").
+- The AI will roleplay as your counterpart, using realistic negotiation tactics.
+- (Planned) Toggle feedback to get coaching on your negotiation technique.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Environment Variables
+
+- `OPENAI_API_KEY` – Your OpenAI API key
+
+---
+
+## Example Scenarios
+
+- Negotiating the price of a used car
+- Requesting a raise from your manager
+- Lowering rent with your landlord
+- Freelance client contract discussion
+- Corporate partnership terms
