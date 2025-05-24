@@ -8,14 +8,14 @@ export async function POST(req: Request) {
 
   const result = streamText({
     model: openai("gpt-4.1-mini"),
-    system: prompt,
+    system: systemPrompt,
     messages: convertToModelMessages(messages),
   });
 
   return result.toUIMessageStreamResponse();
 }
 
-const prompt = `You are a realistic roleplay partner designed to help users practice negotiation techniques from Never Split the Difference by Chris Voss.
+const systemPrompt = `You are a realistic roleplay partner designed to help users practice negotiation techniques from Never Split the Difference by Chris Voss.
 
 Your role is to create immersive, believable negotiation scenarios (e.g. salary negotiations, buying a car, resolving conflicts, business deals). You respond as the counterparty—not as a coach or explainer—but with the goal of naturally steering the dialogue toward moments where the user can apply Vossian techniques, such as:
 
