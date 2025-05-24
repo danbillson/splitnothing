@@ -47,7 +47,15 @@ export default function ChatPage() {
         onSubmit={handleSubmit}
         className="fixed bottom-10 w-full md:max-w-3xl"
       >
-        <AIInputTextarea value={input} onChange={handleInputChange} />
+        <AIInputTextarea
+          value={input}
+          onChange={handleInputChange}
+          placeholder={
+            messages.length === 0
+              ? "What scenario would you like to practice?"
+              : "What is your response?"
+          }
+        />
         <AIInputToolbar>
           <AIInputSubmit className="ml-auto">
             <SendIcon size={16} />
