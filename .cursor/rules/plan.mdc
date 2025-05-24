@@ -1,0 +1,79 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+name: splitnothing
+description: Build a negotiation training app using Vercel AI SDK v5, enabling users to practice scenarios based on "Never Split the Difference" by Chris Voss.
+
+goals:
+  - Simulate realistic negotiation scenarios with AI-powered back-and-forth dialogue.
+  - Enable users to select or create personalized negotiation scenarios (e.g., buying a car, salary negotiation).
+  - Provide AI-generated feedback based on the negotiation principles from "Never Split the Difference".
+  - Use token streaming to simulate realistic conversation pacing, including deliberate pauses.
+  - Initially, no user authentication; focus on local development with future scope for SaaS deployment.
+  - Use OpenAI models with environment-based switching to balance cost and performance.
+  - Open source friendly with clean modular design.
+
+tech_stack:
+  - Framework: Next.js (App Router)
+  - AI SDK: Vercel AI SDK v5 (alpha) [https://ai-sdk.dev/docs/announcing-ai-sdk-5-alpha]
+  - Hosting: Vercel
+  - LLM Provider: OpenAI (GPT models)
+  - Runtime: Edge functions for low-latency streaming
+  - State: useChat() hook from Vercel AI SDK v5
+  - Prompt structure: Scenario + Negotiation Coaching system prompt
+  - Model switching: Env-based (e.g., GPT-4.1 Mini in prod, GPT-4.1 Nano or 3.5 Turbo in dev)
+
+prompts:
+  system:
+    - role: system
+      content: >
+        You are a realistic negotiation counterpart (e.g. car dealer, hiring manager, landlord) in a roleplay scenario.
+        Engage in natural, persuasive dialogue. Allow the user opportunities to apply negotiation techniques.
+        Do NOT guide or teach during the conversation. Focus on maintaining realism.
+        Avoid overly robotic or agreeable responses. Be persuasive, firm, and human.
+  feedback_tool:
+    - name: give_feedback
+      description: Provide constructive analysis of the user's last message using "Never Split the Difference" principles.
+      parameters:
+        user_message: string
+        ai_response: string
+
+rules:
+  - Use `useChat()` from AI SDK v5 with streaming enabled.
+  - Include realistic pauses in AI output (e.g., ellipses, brief delays) to simulate negotiation pacing.
+  - Enable scenario selection (dropdown or custom input).
+  - Structure messages with `system`, `user`, and `assistant` roles for clear turn-taking.
+  - Trigger feedback tool after user message OR as a toggle.
+  - Set models via `process.env.OPENAI_MODEL`:
+    - dev: "gpt-4.1-nano" or "gpt-3.5-turbo-0125"
+    - prod: "gpt-4.1-mini" or "gpt-4o-mini"
+  - Prompt injections should dynamically include scenario + base system rules.
+  - Future scope: add user auth, persistence (e.g., Supabase or Prisma), and billing.
+  - Feedback prompt should be explicit about using techniques like:
+      - Tactical empathy
+      - Mirroring
+      - Labeling
+      - Calibrated questions
+      - “No”-oriented questions
+      - Accusation audit
+      - Effective pauses
+
+notes:
+  - Feedback responses should act like a “negotiation coach” (like a chess coach).
+  - Consider simulating increasingly difficult negotiation partners to improve user skill.
+  - Keep UX simple: chat window, scenario picker, feedback toggle.
+  - Optionally log token usage for each session to estimate cost.
+
+env_variables:
+  OPENAI_API_KEY: Your OpenAI key
+  OPENAI_MODEL: "gpt-4.1-mini" (prod), "gpt-4.1-nano" or "gpt-3.5-turbo-0125" (dev)
+
+example_scenarios:
+  - Negotiating the price of a used car
+  - Requesting a raise from your manager
+  - Lowering rent with your landlord
+  - Freelance client contract discussion
+  - Corporate partnership terms
+
