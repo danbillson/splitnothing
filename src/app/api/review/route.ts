@@ -26,7 +26,6 @@ export async function POST(req: Request) {
 }
 
 function systemPrompt(focusMessage: UIMessage) {
-  // Extract text from the message parts for clarity in the prompt
   const focusText = focusMessage.parts
     .filter((p) => p.type === "text")
     .map((p) => (p.type === "text" ? p.text : ""))
